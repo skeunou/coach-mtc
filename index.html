@@ -516,6 +516,31 @@ const PROTOCOLES = [
   ],
   seanceDuree:"10–15 min"
 },
+{id:"urinaire",titre:"Infection urinaire · soutien (Lin Zheng 淋证)",zone:"Bas-ventre & lombo-sacré",region:"Uro-génital · Rein-Vessie",meridiens:["V","Rn","RM","Rte"],resume:"Soutien au drainage Rein-Vessie : faire circuler, drainer l'Humidité-Chaleur du bas. NE traite PAS l'infection — accompagnement seulement.",statut:"complet",format:"sheet",
+  base:[
+    {n:"Mo fa (bas-ventre)",d:"Cercles doux et lents de la paume sur le bas-ventre (sus-pubien), sens horaire. Aucune pression forte si douleur."},
+    {n:"An Rou fa (bas-ventre)",d:"Sur 3RM (Zhongji, Mu de la Vessie) et 4RM / 6RM. Fait circuler le Qi de la Vessie."},
+    {n:"Rou / An fa (lombo-sacré)",d:"Sur 23V (Rein), 28V (Vessie) et la région sacrée 32V (Ciliao). Soutient Rein et Vessie."},
+    {n:"An Rou fa (jambes)",d:"6Rte (sanyinjiao) + 9Rte (yinlingquan) pour drainer l'Humidité ; 39V (weiyang, eaux) ; 3Rn / 2Rn pour le Rein."},
+    {n:"Ca fa (lombaire)",d:"Friction réchauffante LÉGÈRE sur les lombes, uniquement si terrain de Vide / Froid — à ÉVITER si Chaleur-Humidité (urines brûlantes, fièvre)."}
+  ],
+  points:[
+    {code:"3RM (Zhongji)",role:"Mu de la Vessie — point-clé du bas-ventre et de la vessie."},
+    {code:"4RM / 6RM",role:"Guanyuan / Qihai — tonifient le Rein et le Qi du bas-ventre."},
+    {code:"23V · 28V",role:"Points Shu du Rein et de la Vessie (dos)."},
+    {code:"32V (Ciliao)",role:"Région sacrée — agit sur le bas-appareil urinaire."},
+    {code:"6Rte · 9Rte",role:"Sanyinjiao (croisement des 3 Yin) · Yinlingquan — drainent l'Humidité du bas."},
+    {code:"39V (Weiyang)",role:"He inférieur du Triple Réchauffeur — régule les voies de l'eau."},
+    {code:"3Rn · 2Rn",role:"Taixi (source du Rein) · Rangu (clarifie la Chaleur du Rein)."}
+  ],
+  seance:[
+    {t:"Bas-ventre",d:"Mo fa doux (sens horaire) puis An Rou fa sur 3RM, 4RM / 6RM — faire circuler le Qi de la Vessie."},
+    {t:"Lombo-sacré",d:"Rou / An fa sur 23V, 28V et 32V (Ciliao). Ca fa léger seulement si Vide / Froid."},
+    {t:"Drainage (jambes)",d:"An Rou fa 6Rte + 9Rte (Humidité), 39V (eaux), 3Rn / 2Rn (Rein)."},
+    {t:"Clôture",d:"Geste apaisant + rappel hydratation et miction non retenue."}
+  ],
+  seanceDuree:"~20 min"
+},
 {id:"cervicalgie",titre:"Cervicalgie / tensions trapèzes",zone:"Tête & cou",meridiens:["VB","IG"],resume:"Raideur cervicale et trapèzes.",statut:"soon"},
 {id:"achille",titre:"Tendinopathie d'Achille",zone:"Membre inférieur",meridiens:["V","R"],resume:"Tendon calcanéen. Méridien Vessie / Rein.",statut:"soon"},
 {id:"epicondylite",titre:"Épicondylite (tennis elbow)",zone:"Membre supérieur",meridiens:["GI"],resume:"Douleur face externe du coude.",statut:"soon"},
@@ -580,6 +605,27 @@ function reperesBlock(){
 
 /* Compléments d'harmonisation (cadre MTC, ventouses, adjuvants, précautions) — synthèse pro à valider */
 const ENRICH={
+ urinaire:{
+  cadre:[
+   {l:"Méridiens",t:"Vessie, Rein, Ren Mai (bas-ventre), Rate (gère l'Humidité)."},
+   {l:"Tableau (Lin Zheng)",t:"« Lin » = mictions difficiles / douloureuses. Le plus souvent Humidité-Chaleur au Réchauffeur inférieur ; sur terrain, vide du Rein ou de la Rate."},
+   {l:"Objectif Tuina",t:"Drainer, faire circuler le Qi de la Vessie, soutenir Rein et Rate. Soutien au confort et au drainage — pas un traitement de l'infection."},
+   {l:"Principe",t:"Clarifier la Chaleur et drainer l'Humidité du bas, libérer le Qi de la Vessie, soutenir le Rein. Disperser si Chaleur ; réchauffer / tonifier si Vide-Froid."}
+  ],
+  ventouses:[{t:"Fixes / glissantes (lombo-sacré)",d:"Sur la région lombaire basse et le sacrum (autour de 23V). Aide à drainer.",dur:"5–8 min"}],
+  ventPrec:"Pas de ventouse forte ni de chaleur sur un tableau de Chaleur-Humidité aiguë. Jamais sur le bas-ventre en cas de douleur vive.",
+  adjuvants:[
+   {t:"Moxa",d:"Sur 4RM / 23V UNIQUEMENT si Vide-Froid (frilosité, urines claires, sans fièvre). À proscrire si Chaleur-Humidité.",dur:"5–10 min"},
+   {t:"Hygiène de vie",d:"Hydratation abondante, ne pas se retenir d'uriner, miction après les rapports — en complément."}
+  ],
+  precautions:[
+   "Une infection urinaire (cystite, a fortiori pyélonéphrite) relève d'un avis médical et souvent d'un antibiotique. Le Tuina est un soutien, pas un traitement de l'infection.",
+   "Drapeaux rouges → consultation / urgence : fièvre, frissons, douleur du flanc ou lombaire, sang dans les urines, vomissements, douleur intense.",
+   "À adresser systématiquement au médecin : grossesse, homme, enfant, diabète, immunodépression, récidives, sonde urinaire.",
+   "Ne pas masser fortement le bas-ventre en cas de douleur aiguë ; éviter chaleur / ventouses sur Chaleur installée."
+  ],
+  auto:"Auto-Mo fa doux du bas-ventre, An Rou fa sur 6Rte et 3Rn, hydratation. Consulter en cas de fièvre, douleur lombaire ou sang dans les urines."
+ },
  lombalgie:{
   cadre:[
    {l:"Méridiens",t:"Vessie (1ère et 2ème chaînes du dos), Du Mai, Rein — région des lombes."},
