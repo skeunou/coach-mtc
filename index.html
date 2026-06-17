@@ -133,6 +133,21 @@ ul.clean li:before{content:"▸";position:absolute;left:0;color:var(--jade)}
 footer{text-align:center;color:var(--mut);font-size:11px;padding:24px 18px 40px;line-height:1.7}
 .disc{background:var(--surf);border:1px solid var(--bdr);border-radius:9px;padding:12px;font-size:11.5px;color:var(--mut);margin-bottom:14px;line-height:1.6}
 .disc b{color:var(--warn)}
+
+.toolbtn{display:inline-flex;align-items:center;gap:6px;background:var(--surf);border:1px solid var(--bdr);color:var(--txt);font-family:'DM Sans';font-weight:700;font-size:13px;padding:9px 14px;border-radius:9px;cursor:pointer;margin-bottom:14px}
+.toolbtn:active{transform:scale(.98)}
+.fab{position:fixed;right:16px;bottom:16px;z-index:60;width:54px;height:54px;border-radius:50%;background:var(--acc);color:#fff;border:none;font-size:23px;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,.20)}
+.tpanel{position:fixed;right:16px;bottom:82px;z-index:60;background:var(--surf);border:1px solid var(--bdr);border-radius:14px;padding:16px;width:236px;box-shadow:0 10px 34px rgba(0,0,0,.20);display:none}
+.tpanel.show{display:block}
+.tpanel .tt{font-family:'Bebas Neue';font-size:18px;letter-spacing:1px;margin-bottom:8px}
+.tdisp{font-family:'Bebas Neue';font-size:52px;text-align:center;line-height:1;color:var(--acc);margin:4px 0 10px}
+.tpre{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.tpre button{flex:1;min-width:40px;background:var(--surf2);border:1px solid var(--bdr);border-radius:7px;padding:7px 0;font-weight:700;font-size:12px;cursor:pointer;color:var(--txt)}
+.tpre button.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+.tctrl{display:flex;gap:8px}
+.tctrl button{flex:1;border:none;border-radius:8px;padding:10px 0;font-weight:700;font-size:13px;cursor:pointer}
+.tstart{background:var(--grn);color:#fff}
+.treset{background:var(--surf2);color:var(--txt);border:1px solid var(--bdr)}
 </style>
 </head>
 <body>
@@ -148,6 +163,7 @@ footer{text-align:center;color:var(--mut);font-size:11px;padding:24px 18px 40px;
     <div class="disc">⚕️ Outil de <b>référence d'apprentissage</b> personnel. Ne remplace pas une formation encadrée ni un avis médical. Localisations à vérifier avec ton référentiel de formation.</div>
     <input class="searchbar" id="search" placeholder="Rechercher un protocole, une zone, un méridien…" oninput="renderCatalogue()">
     <div class="filters" id="zoneFilters"></div>
+    <button class="toolbtn" onclick="showGlossaire()">📖 Glossaire des techniques</button>
     <div id="cardList"></div>
   </div>
 
@@ -156,6 +172,17 @@ footer{text-align:center;color:var(--mut);font-size:11px;padding:24px 18px 40px;
 </div>
 
 <footer>Construit sur mesure · Données locales · Aucune pub<br>LV's Tools · Univers MTC</footer>
+
+<button class="fab" onclick="toggleTimer()" title="Timer de séance">⏱</button>
+<div class="tpanel" id="tpanel">
+  <div class="tt">Timer de séance</div>
+  <div class="tpre" id="tpre"></div>
+  <div class="tdisp" id="tdisp">05:00</div>
+  <div class="tctrl">
+    <button class="tstart" id="tstartbtn" onclick="timerStartPause()">Démarrer</button>
+    <button class="treset" onclick="timerReset()">Reset</button>
+  </div>
+</div>
 
 <script>
 /* ============ DONNÉES ============ */
@@ -882,6 +909,65 @@ function selectPoint(code){
     <div class="pi-row"><b>Distance</b>${pt.dist}</div>
     <div class="pi-row tip"><b>Tip</b>${pt.tip}</div>`;
 }
+
+
+/* ============ GLOSSAIRE TECHNIQUES ============ */
+const TECHNIQUES=[
+ {fam:"Pression",nom:"Tui fa",cn:"推法 · pousser",desc:"Poussée linéaire et régulière (pouce, paume ou racine de la paume) dans une direction. Ouvre et draine le long du trajet."},
+ {fam:"Pression",nom:"An fa",cn:"按法 · presser",desc:"Pression perpendiculaire, progressive et maintenue (pouce, paume ou coude). Détend en profondeur, ouvre les points."},
+ {fam:"Pression",nom:"Dian fa",cn:"点法 · pointer",desc:"Pression ponctuelle et précise du bout du doigt ou de l'articulation, sur un point. Plus pénétrante que An fa."},
+ {fam:"Pression",nom:"An Rou fa",cn:"按揉 · presser-pétrir",desc:"Pression maintenue + petits cercles au même endroit. Combinaison de base, très utilisée sur les points."},
+ {fam:"Pression",nom:"Li fa",cn:"lissage",desc:"Lissage appuyé au pouce le long du trajet (mise en ordre du Qi). D'après ton référentiel de formation."},
+ {fam:"Pétrissage & friction",nom:"Rou fa",cn:"揉法 · pétrir",desc:"Pétrissage circulaire sur place : la peau bouge avec le doigt/la paume, sans glisser. Détend, harmonise."},
+ {fam:"Pétrissage & friction",nom:"Mo fa",cn:"摩法 · effleurer",desc:"Cercles superficiels et lents de la paume ou des doigts, sans appuyer. Apaise et régule (souvent sur l'abdomen)."},
+ {fam:"Pétrissage & friction",nom:"An Mo fa",cn:"按摩 · presser-pétrir circulaire",desc:"Presser-pétrir en friction circulaire sur une zone large (ex. tout le dos)."},
+ {fam:"Pétrissage & friction",nom:"Cuo fa",cn:"搓法 · friction",desc:"Le membre est saisi entre les deux paumes frottées en sens inverse, en remontant. Réchauffe, relance la circulation."},
+ {fam:"Pétrissage & friction",nom:"Ca fa",cn:"擦法 · friction réchauffante",desc:"Friction linéaire rapide jusqu'à production de chaleur. Mouvement de clôture, indiqué sur le Froid."},
+ {fam:"Préhension & déliage",nom:"Na fa",cn:"拿法 · saisir",desc:"Saisie-pression entre le pouce et les doigts : on prend, comprime puis relâche le muscle. Dénoue les contractures."},
+ {fam:"Préhension & déliage",nom:"Na Rou fa",cn:"拿揉 · saisir-pétrir",desc:"Saisir (Na) puis pétrir (Rou) le muscle. Détente musculaire profonde."},
+ {fam:"Préhension & déliage",nom:"Tan bo fa",cn:"弹拨法 · pincé-roulé",desc:"Le pouce accroche un tendon/cordon et le fait rouler transversalement (perpendiculaire aux fibres). Défait les adhérences."},
+ {fam:"Préhension & déliage",nom:"Bo fa",cn:"拨法 · écarter",desc:"Déplacement transversal des fibres musculaires/tendineuses au pouce (souvent couplé à Tan : Tan bo fa)."},
+ {fam:"Roulement & percussion",nom:"Gun fa",cn:"滚法 · rouler",desc:"Roulement continu du dos/tranchant de la main par flexion-extension du poignet. Couvre de grandes surfaces musculaires."},
+ {fam:"Roulement & percussion",nom:"Pai fa",cn:"拍法 · tapoter",desc:"Tapotements rythmés de la paume creuse. Stimule et draine."},
+ {fam:"Roulement & percussion",nom:"Qiao (percussion)",cn:"percussion",desc:"Percussions rythmées (poing, tranchant, paume creuse — « canard, kou, coque »). Réveille la circulation."},
+ {fam:"Mobilisation",nom:"La fa",cn:"拉法 · étirer",desc:"Traction/étirement dans l'axe pour décoapter l'articulation et étirer les tissus."},
+ {fam:"Mobilisation",nom:"Ban fa",cn:"扳法 · mobiliser",desc:"Mobilisation passive en rotation, lente et contrôlée, jamais forcée (prudence cervicale ++)."},
+ {fam:"Mobilisation",nom:"Fen fa",cn:"分法 · séparer (Fen Tui)",desc:"Poussée des deux pouces qui s'écartent symétriquement. Ouvre une zone (front, dos)."},
+ {fam:"Adjuvant",nom:"Guasha",cn:"刮痧 · raclage",desc:"Raclage de la peau à l'outil mousse après huile, jusqu'à rougeur (sha). Libère le fascia, sort le facteur pathogène."}
+];
+function showGlossaire(){
+  const fams={}; TECHNIQUES.forEach(t=>{(fams[t.fam]=fams[t.fam]||[]).push(t);});
+  let body="";
+  Object.keys(fams).forEach(f=>{
+    const inner=fams[f].map(t=>`<div class="tech"><div class="tn"><b>${t.nom}</b> <span style="color:var(--mut);font-size:12px">${t.cn}</span></div><div class="desc">${t.desc}</div></div>`).join("");
+    body+=sec("✋",f,inner,true);
+  });
+  document.getElementById("detail").innerHTML=`<div class="dhero"><h2>Glossaire des techniques Tuina</h2><div class="region">Les gestes de base, par famille.</div></div>
+    <div class="disc" style="margin-bottom:12px">Référence des techniques citées dans les protocoles. Noms d'après ton référentiel de formation.</div>${body}`;
+  document.getElementById("catalogue").style.display="none";
+  document.getElementById("detail").style.display="block";
+  document.getElementById("backBtn").style.display="block";
+  window.scrollTo(0,0);
+}
+
+/* ============ TIMER DE SÉANCE ============ */
+const TPRESETS=[3,5,8,10,15];
+let tTotal=300,tLeft=300,tInt=null,tRunning=false;
+function buildTPre(){document.getElementById("tpre").innerHTML=TPRESETS.map(m=>`<button class="${m*60===tTotal?'on':''}" onclick="timerSet(${m})">${m}′</button>`).join("");}
+function fmtT(s){const m=Math.floor(s/60),x=s%60;return String(m).padStart(2,'0')+":"+String(x).padStart(2,'0');}
+function tRender(){document.getElementById("tdisp").textContent=fmtT(tLeft);}
+function timerStop(){if(tInt){clearInterval(tInt);tInt=null;}tRunning=false;document.getElementById("tstartbtn").textContent="Démarrer";}
+function timerSet(m){tTotal=m*60;tLeft=tTotal;timerStop();buildTPre();tRender();}
+function timerReset(){timerStop();tLeft=tTotal;tRender();}
+function timerStartPause(){
+  if(tRunning){timerStop();return;}
+  if(tLeft<=0)tLeft=tTotal;
+  tRunning=true;document.getElementById("tstartbtn").textContent="Pause";
+  tInt=setInterval(()=>{tLeft--;tRender();if(tLeft<=0){timerStop();beep();}},1000);
+}
+function beep(){try{const a=new (window.AudioContext||window.webkitAudioContext)();const o=a.createOscillator(),g=a.createGain();o.connect(g);g.connect(a.destination);o.frequency.value=880;o.start();g.gain.setValueAtTime(.22,a.currentTime);g.gain.exponentialRampToValueAtTime(.001,a.currentTime+.8);o.stop(a.currentTime+.85);}catch(e){}}
+function toggleTimer(){document.getElementById("tpanel").classList.toggle("show");}
+buildTPre();tRender();
 
 /* ============ INIT ============ */
 buildZoneFilters();
