@@ -9,10 +9,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#0d0d0f; --surf:#141416; --surf2:#1c1c20; --bdr:#2a2a30;
-  --acc:#e8ff47; --acc2:#ff6b35; --warn:#ff9500; --txt:#f0f0f0;
-  --mut:#6b6b78; --grn:#4ade80; --red:#f87171; --purp:#a78bfa; --blue:#38bdf8;
-  --jade:#34d399;
+  --bg:#fafaf8; --surf:#ffffff; --surf2:#f0efe9; --bdr:rgba(0,0,0,0.12);
+  --acc:#3c34b9; --acc2:#993c1d; --warn:#854f0b; --txt:#1a1a18;
+  --mut:#5a5a55; --grn:#0f6e56; --red:#b3261e; --purp:#6d3bbf; --blue:#2b6cb0;
+  --jade:#0f6e56;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased}
@@ -34,7 +34,7 @@ header .accentbar{width:5px;height:38px;background:var(--jade);border-radius:3px
 .searchbar:focus{outline:none;border-color:var(--jade)}
 .filters{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px}
 .chip{background:var(--surf2);border:1px solid var(--bdr);color:var(--mut);font-size:12.5px;font-weight:500;padding:6px 12px;border-radius:20px;cursor:pointer;transition:.15s}
-.chip.on{background:var(--jade);border-color:var(--jade);color:#06281d}
+.chip.on{background:var(--jade);border-color:var(--jade);color:#fff}
 .chip:active{transform:scale(.96)}
 
 .card{background:var(--surf);border:1px solid var(--bdr);border-left:4px solid var(--jade);border-radius:10px;padding:16px;margin-bottom:12px;cursor:pointer;transition:.15s}
@@ -43,7 +43,7 @@ header .accentbar{width:5px;height:38px;background:var(--jade);border-radius:3px
 .card .ctop{display:flex;align-items:center;gap:8px;margin-bottom:6px;flex-wrap:wrap}
 .card h3{font-size:21px;color:var(--txt);flex:1;min-width:60%}
 .badge{font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;letter-spacing:.5px;font-family:'DM Sans';text-transform:uppercase}
-.b-mer{background:rgba(52,211,153,.15);color:var(--jade);border:1px solid rgba(52,211,153,.35)}
+.b-mer{background:#e1f5ee;color:var(--jade);border:1px solid #bfe6d9}
 .b-zone{background:var(--surf2);color:var(--mut);border:1px solid var(--bdr)}
 .b-soon{background:rgba(107,107,120,.15);color:var(--mut);border:1px solid var(--bdr)}
 .card .cdesc{font-size:13.5px;color:var(--mut)}
@@ -98,11 +98,11 @@ header .accentbar{width:5px;height:38px;background:var(--jade);border-radius:3px
 
 /* STEPS */
 .step{display:flex;gap:11px;margin-bottom:10px}
-.step .num{flex:0 0 26px;height:26px;border-radius:50%;background:var(--jade);color:#06281d;font-family:'Bebas Neue';font-size:16px;display:flex;align-items:center;justify-content:center}
+.step .num{flex:0 0 26px;height:26px;border-radius:50%;background:var(--jade);color:#fff;font-family:'Bebas Neue';font-size:16px;display:flex;align-items:center;justify-content:center}
 .step .st{flex:1;font-size:13.5px;padding-top:3px}
 .step .st b{color:var(--jade)}
 
-.warnbox{background:rgba(255,107,53,.08);border:1px solid rgba(255,107,53,.3);border-radius:9px;padding:12px;margin-bottom:10px}
+.warnbox{background:#faece7;border:1px solid #e8c4b6;border-radius:9px;padding:12px;margin-bottom:10px}
 .warnbox .wt{color:var(--acc2);font-weight:700;font-size:13px;margin-bottom:6px}
 .warnbox ul{list-style:none;font-size:13px}
 .warnbox li{padding-left:16px;position:relative;margin-bottom:5px}
@@ -860,7 +860,7 @@ function buildOverlay(key,active){
     const on=p.c===active;
     const base=p.t==="c"?"#ff6b35":"#111";
     const dot=on
-      ?`<circle cx="${p.x}" cy="${p.y}" r="18" fill="none" stroke="#e8ff47" stroke-width="3" opacity="0.75"/><circle cx="${p.x}" cy="${p.y}" r="11" fill="#e8ff47" stroke="#111" stroke-width="3"/>`
+      ?`<circle cx="${p.x}" cy="${p.y}" r="18" fill="none" stroke="#3c34b9" stroke-width="3" opacity="0.75"/><circle cx="${p.x}" cy="${p.y}" r="11" fill="#3c34b9" stroke="#111" stroke-width="3"/>`
       :`<circle cx="${p.x}" cy="${p.y}" r="9" fill="${base}" stroke="#fff" stroke-width="3"/>`;
     return `<g style="cursor:pointer" onclick="selectPoint('${p.c}')" onmouseenter="selectPoint('${p.c}')">
       <circle cx="${p.x}" cy="${p.y}" r="30" fill="transparent"/>
