@@ -538,46 +538,189 @@ function sec(ico,title,bodyHTML,open){
   </div>`;
 }
 
+function reperesBlock(){
+  return `
+    <div class="lead">Avant de localiser : comprendre les unités et la nomenclature.</div>
+    <div class="kv"><b>Le cun</b> <span>— mesure <u>proportionnelle au corps de la personne traitée</u>, pas une distance fixe.</span></div>
+    <ul class="clean">
+      <li><b>1 cun</b> = largeur du pouce (à l'articulation)</li>
+      <li><b>1,5 cun</b> = largeur index + majeur</li>
+      <li><b>3 cun</b> = largeur des 4 doigts serrés (index → auriculaire)</li>
+    </ul>
+    <div class="kv" style="margin-top:10px"><b>Nomenclature</b> <span>— <i>VB34</i> = 34ᵉ point du méridien Vésicule Biliaire. Le nom pinyin est le nom chinois traditionnel.</span></div>
+    <div class="kv"><b>Types de points</b> <span>— He-Mer, point Hui (réunion), points Shu du dos, Ah Shi (points douloureux palpés)… chacun a une logique propre.</span></div>`;
+}
+
+/* Compléments d'harmonisation (cadre MTC, ventouses, adjuvants, précautions) — synthèse pro à valider */
+const ENRICH={
+ lombalgie:{
+  cadre:[
+   {l:"Méridiens",t:"Vessie (1ère et 2ème chaînes du dos), Du Mai, Rein — région des lombes."},
+   {l:"Causes externes",t:"Vent-Froid · Vent-Humidité · Froid-Humidité · Humidité-Chaleur."},
+   {l:"Causes internes",t:"Vide de Yin · de Yang · de Qi du Rein."},
+   {l:"Traumatismes / autres",t:"Stagnation de Qi, Stase de Sang ; Glaires-Humidité, lithiase, usure (port de charge, torsions)."},
+   {l:"Repère clé",t:"« Les Reins sont responsables de leur Logis » : le plus souvent Reins en Vide ET un Xie Qi/plénitude présent."},
+   {l:"Principe",t:"Désobstruer méridien et collatéraux, faire circuler Qi et Sang, tonifier le Rein selon le vide, chasser Froid/Humidité."}
+  ],
+  ventouses:[
+   {t:"Fixes",d:"Sur la région lombaire et les points du dos (23V…). Draine la stagnation.",dur:"5–10 min"},
+   {t:"Glissantes",d:"Le long des chaînes de Vessie après huile.",dur:"3–5 min"}
+  ],
+  ventPrec:"Marques violacées normales (2–5 j). Éviter varices, peau lésée, anticoagulants. Pas de ventouse forte en phase aiguë très inflammatoire.",
+  adjuvants:[
+   {t:"Moxibustion",d:"Sur 23V (shenshu) et la ceinture si Vide de Yang ou Froid.",dur:"5–10 min"},
+   {t:"Compresse chaude",d:"En fin de séance si Froid-Humidité."},
+   {t:"Guasha",d:"Sur les chaînes de Vessie si stagnation marquée."}
+  ],
+  precautions:[
+   "Écarter un drapeau rouge avant tout Tuina : douleur nocturne croissante, déficit neurologique (sciatalgie), traumatisme récent, fièvre → bilan médical.",
+   "Adapter la profondeur à la tolérance ; pas de manipulation forcée.",
+   "Pathologie rénale / lithiase : ne pas confondre avec une lombalgie mécanique."
+  ],
+  auto:"Auto-Rou fa / An fa sur la ceinture lombaire et 23V, mobilisations douces possibles seul. Le travail profond et les points distaux nécessitent un praticien."
+ },
+ epaules:{
+  cadre:[
+   {l:"Méridiens",t:"Gros Intestin, Intestin Grêle, Triple Réchauffeur, Estomac, Poumon, VB — pourtour de l'épaule."},
+   {l:"Tableau",t:"Bi syndrome de l'épaule : Vent-Froid-Humidité, stagnation de Qi/Sang, ± vide sous-jacent (périarthrite, raideur)."},
+   {l:"Principe",t:"Désobstruer méridiens et collatéraux, relâcher les tendino-musculaires, faire circuler Qi et Sang, restaurer la mobilité."}
+  ],
+  ventouses:[{t:"Fixes / glissantes",d:"Sur les masses péri-scapulaires et le trapèze.",dur:"5–10 min"}],
+  ventPrec:"Marques normales 2–5 j. Éviter peau lésée, anticoagulants.",
+  adjuvants:[
+   {t:"Mobilisations",d:"La fa (étirement), Ban fa (rotation douce), mobilisation arrière — récupérer les amplitudes."},
+   {t:"Chaleur / moxa",d:"Si composante de Froid."}
+  ],
+  precautions:[
+   "Capsulite rétractile, déchirure de coiffe : ne pas forcer l'amplitude, mobilisations infra-douloureuses.",
+   "Respecter le seuil de douleur, progressivité sur la mobilité."
+  ],
+  auto:"Auto-Rou/An fa sur trapèze et points accessibles + mobilisations douces. Le travail complet (table, distaux) avec un praticien."
+ },
+ genoux:{
+  cadre:[
+   {l:"Méridiens",t:"Estomac, Rate, VB, Vessie — pourtour du genou ; yeux du genou (Xiyan)."},
+   {l:"Tableau",t:"Bi syndrome du genou : Vent-Froid-Humidité, stase locale, ± vide (usure / arthrose)."},
+   {l:"Principe",t:"Désobstruer le genou, faire circuler Qi et Sang au pourtour, relâcher les tendons (34VB), soutenir le Sang (10Rte)."}
+  ],
+  ventouses:[{t:"Fixes",d:"Autour du genou (hors rotule) et points sensibles.",dur:"5–8 min"}],
+  ventPrec:"Éviter ventouse forte sur genou chaud / gonflé.",
+  adjuvants:[
+   {t:"Mobilisations",d:"Flexion-extension passive douce, sans forcer."},
+   {t:"Moxa",d:"Si Froid (genou raide soulagé par la chaleur)."}
+  ],
+  precautions:[
+   "Genou inflammatoire (chaud, gonflé, poussée) : techniques douces, pas de pression forte ni chaleur.",
+   "Épanchement, instabilité ligamentaire, suspicion de lésion méniscale aiguë → avis médical."
+  ],
+  auto:"Auto-Rou/An fa sur yeux du genou, 34E et 10Rte + mobilisations douces possibles seul."
+ },
+ insomnie:{
+  cadre:[
+   {l:"Méridiens",t:"Vessie (points Shu du dos), Du Mai, Cœur, Maître du Cœur, Rein, Rate — axe Cœur/Rein."},
+   {l:"Tableau",t:"Trouble du Shen : non-ancrage du Shen, désharmonie Cœur-Rein, montée de Yang, ± vide de Sang/Yin (à affiner selon le terrain)."},
+   {l:"Principe",t:"Calmer et ancrer le Shen, harmoniser Cœur et Rein, nourrir Sang/Yin ; rythme posé et rassurant."}
+  ],
+  adjuvants:[
+   {t:"Rythme & ambiance",d:"Lumière douce, gestes lents et réguliers — partie intégrante du traitement de l'insomnie."},
+   {t:"Auto-soir",d:"Anmian, 7C shenmen, 1Rn yongquan + respiration lente avant le coucher."}
+  ],
+  precautions:[
+   "Insomnie chronique sévère, contexte anxieux ou dépressif marqué : orienter vers un suivi adapté.",
+   "Éviter les techniques vigoureuses / stimulantes en soirée."
+  ],
+  auto:"Auto-massage du cuir chevelu, Anmian, 7C et 1Rn le soir ; respiration lente. Protocole complet avec un praticien."
+ },
+ torticolis:{
+  cadre:[
+   {l:"Méridiens",t:"Intestin Grêle, VB, Du Mai, Vessie — nuque et trapèzes."},
+   {l:"Tableau",t:"Vent-Froid + surmenage musculaire ; parfois traumatisme type entorse. Douleur aiguë amplifiée au mouvement, limitation."},
+   {l:"Objectif / principe",t:"Décontracter les tendino-musculaires, désobstruer méridiens et collatéraux, activer Qi et Sang, favoriser l'articulation."}
+  ],
+  ventouses:[{t:"Fixes / glissantes",d:"Sur les trapèzes et la base de la nuque.",dur:"5–8 min"}],
+  ventPrec:"Zone fragile : ventouses douces, jamais directement sur la colonne cervicale.",
+  adjuvants:[
+   {t:"Guasha",d:"Sur trapèzes / nuque si stagnation."},
+   {t:"Chaleur / moxa",d:"Selon le degré de Froid : Ca fa, moxas, compresse chaude."},
+   {t:"Mobilisations",d:"Étirements et mouvements passifs de la nuque, sans forcer."}
+  ],
+  precautions:[
+   "Nuque = zone fragile : techniques sans brutalité, jamais de manipulation forcée.",
+   "Torticolis à répétition → possibilité d'arthrose : examens plus poussés.",
+   "Signes neurologiques, traumatisme cervical, vertiges → avis médical avant Tuina.",
+   "Si Vide de Rein (cause possible/conjointe) : l'intégrer (23V, 3Rn)."
+  ],
+  auto:"Auto-Rou/An fa sur trapèzes accessibles + mobilisations douces infra-douloureuses. Travail nuque profond avec un praticien."
+ },
+ assis:{
+  cadre:[
+   {l:"Cadre",t:"Intervention extérieure / entreprise. Séance courte (10–15 min), sur chaise, habillé."},
+   {l:"Objectif",t:"Détendre, relancer la circulation, soulager les tensions du haut du corps (dos, trapèzes, bras, nuque, tête)."},
+   {l:"Méridiens",t:"Vessie (chaînes du dos), Intestin Grêle, VB — haut du corps."},
+   {l:"Questions préalables",t:"A) Déjà reçu un massage ?  B) Médicament / affection ?  C) Zones à travailler — OK ?  D) Pression douce ou forte ?"}
+  ],
+  adjuvants:[{t:"Ressenti",d:"Demander le ressenti en fin de séance ; ajuster la pression en cours."}],
+  precautions:[
+   "Adapter la pression au confort ; éviter zones douloureuses ou blessées.",
+   "Pas de manipulation cervicale forcée — étirements doux uniquement.",
+   "Vérifier affections / contre-indications avant de commencer (cf. questions préalables)."
+  ],
+  auto:"Routine guidée par le praticien ; quelques auto-étirements (nuque, bras) reproductibles seul."
+ }
+};
+
 function renderSheet(p){
+  const e=ENRICH[p.id]||{};
   const mer=p.meridiens.map(m=>`<span class="badge b-mer">Méridien ${m}</span>`).join("");
   let body="";
-  if(p.apercu){
-    const a=p.apercu.map(x=>`<div class="kv"><b>${x.l}</b><br><span>${x.t}</span></div>`).join("");
-    body+=sec("📋","Aperçu clinique",a,true);
+  // 1. Cadre diagnostic MTC
+  if(e.cadre){
+    body+=sec("🧭","Cadre diagnostic MTC",e.cadre.map(x=>`<div class="kv"><b>${x.l}</b><br><span>${x.t}</span></div>`).join(""),true);
   }
-  if(p.causes){const c=p.causes;
-    const causesHTML=`
-      <div class="kv"><b>Causes externes</b><br><span>${c.ext.join(" · ")}</span></div>
-      <div class="kv"><b>Causes internes</b><br><span>${c.int.join(" · ")}</span></div>
-      <div class="kv"><b>Traumatismes</b><br><span>${c.trauma.join(" · ")}</span></div>
-      <div class="kv"><b>Autres causes</b><br><span>${c.autres}</span></div>
-      <ul class="clean" style="margin-top:8px">${c.notes.map(n=>`<li>${n}</li>`).join("")}</ul>`;
-    body+=sec("🧭","Cadre & causes",causesHTML,true);
+  // 2. Comprendre les repères
+  body+=sec("📐","Comprendre les repères",reperesBlock(),false);
+  // 3. Points clés
+  if(p.points){
+    const ptsHTML=p.points.map(pt=>`<div class="pt"><div class="ph"><span class="code" style="font-size:18px">${pt.code}</span></div><div class="prow"><span class="val">${pt.role}</span></div></div>`).join("");
+    body+=sec("📍","Points clés",ptsHTML,true);
   }
+  // 4. Techniques Tuina (séquence ou par région)
   if(p.base){
     const baseHTML=(p.baseNote?`<div class="lead">${p.baseNote}</div>`:"")+p.base.map((s,i)=>`<div class="step"><div class="num">${i+1}</div><div class="st"><b>${s.n}</b> — ${s.d}</div></div>`).join("");
-    body+=sec("✋","Base Tui Na",baseHTML,true);
+    body+=sec("✋","Techniques Tuina",baseHTML,false);
   }
   if(p.regions){
     const regHTML=p.regions.map(r=>`<div class="grp">${r.nom}</div>`+r.steps.map((s,i)=>`<div class="step"><div class="num">${i+1}</div><div class="st"><b>${s.n}</b> — ${s.d}</div></div>`).join("")).join("");
-    body+=sec("✋","Protocole (par région)",regHTML,true);
+    body+=sec("✋","Techniques Tuina (par région)",regHTML,false);
   }
-  if(p.points){
-    const ptsHTML=p.points.map(pt=>`<div class="pt"><div class="ph"><span class="code" style="font-size:18px">${pt.code}</span></div><div class="prow"><span class="val">${pt.role}</span></div></div>`).join("");
-    body+=sec("📍","Points clés",ptsHTML,false);
-  }
+  // 5. Selon le syndrome
   if(p.syndromes){
     const synHTML=p.syndromes.map(s=>`<div class="tech"><div class="tn"><b>${s.nom}</b></div><div class="desc"><b style="color:var(--jade)">Points : </b>${s.pts}</div><div class="meta">${s.note}</div></div>`).join("");
     body+=sec("🔀","Selon le syndrome",synHTML,false);
   }
+  // 6. Ventouses
+  if(e.ventouses){
+    const ventHTML=e.ventouses.map(v=>`<div class="tech"><div class="tn"><b>${v.t}</b></div><div class="desc">${v.d}</div><div class="meta"><b>Durée</b> ${v.dur}</div></div>`).join("")
+      +(e.ventPrec?`<div class="warnbox"><div class="wt">Précautions ventouses</div><div style="font-size:13px;color:var(--txt)">${e.ventPrec}</div></div>`:"");
+    body+=sec("🫙","Ventouses",ventHTML,false);
+  }
+  // 7. Modalités adjuvantes
+  if(e.adjuvants){
+    body+=sec("➕","Modalités adjuvantes",e.adjuvants.map(a=>`<div class="tech"><div class="tn"><b>${a.t}</b></div><div class="desc">${a.d}</div>${a.dur?`<div class="meta"><b>Durée</b> ${a.dur}</div>`:""}</div>`).join(""),false);
+  }
+  // 8. Déroulé de séance
   if(p.seance){
     const seanceHTML=`<div class="lead">Proposition de séance cohérente — synthèse à partir des points et de la pathologie, à valider/ajuster.</div>`
       +p.seance.map((s,i)=>`<div class="step"><div class="num">${i+1}</div><div class="st"><b>${s.t}</b> — ${s.d}</div></div>`).join("")
       +(p.seanceDuree?`<div class="kv" style="margin-top:6px"><b>Durée indicative</b> <span>${p.seanceDuree}</span></div>`:"");
-    body+=sec("🔢","Déroulé de séance proposé",seanceHTML,false);
+    body+=sec("🔢","Déroulé de séance",seanceHTML,false);
   }
-  if(p.notes2){
-    body+=sec("🗒️","Notes",`<ul class="clean">${p.notes2.map(n=>`<li>${n}</li>`).join("")}</ul>`,false);
+  // 9. Précautions & auto-traitement
+  if(e.precautions||e.auto){
+    let pr="";
+    if(e.precautions) pr+=`<div class="warnbox"><div class="wt">Contre-indications & vigilance</div><ul>${e.precautions.map(x=>`<li>${x}</li>`).join("")}</ul></div>`;
+    if(e.auto) pr+=`<div class="kv"><b>Auto-traitement</b><br><span>${e.auto}</span></div>`;
+    body+=sec("⚠️","Précautions & auto-traitement",pr,false);
   }
   document.getElementById("detail").innerHTML=`
     <div class="dhero">
@@ -585,7 +728,7 @@ function renderSheet(p){
       <div class="tags">${mer}<span class="badge b-zone">${p.zone}</span></div>
       <div class="region">${p.region||""}</div>
     </div>
-    <div class="disc" style="margin-bottom:12px">Transcrit de tes notes de formation. Le « déroulé de séance proposé » est une synthèse cohérente (points + pathologie), à valider. Localisations détaillées + schéma interactif à ajouter en option (format deluxe), comme pour le TFL.</div>
+    <div class="disc" style="margin-bottom:12px">Transcrit de tes notes de formation et harmonisé. Le cadre diagnostic et le déroulé de séance sont des synthèses cohérentes, à valider. Localisations au cun + schéma interactif à ajouter en option (format deluxe).</div>
     ${body}`;
   document.getElementById("catalogue").style.display="none";
   document.getElementById("detail").style.display="block";
